@@ -33,6 +33,11 @@ public class ParallelTasks {
         Set<WebContent> result =
                 futures.stream()
                         .map(CompletableFuture::join)
+                        /**
+                         * A consumer can be called between by peek() to do some additional
+                         * task
+                         */
+                        // .peek(f-> System.out.println("result for: "+f.url))
                         .collect(Collectors.toSet());
 
         return result;
