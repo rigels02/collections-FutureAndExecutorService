@@ -25,6 +25,28 @@ instance via get() method of ScheduledFuture.
 We will have a look at an example, to see how we can get the ScheduledThreadPoolExecutor 
 Class to schedule the delayed activities.
 
+ExecutorService and Future
+--------------------------
+If with ExecutorService  we execute following methods:
+~~~~
+   future = executor.submit(task) 
+~~~~
+and then
+~~~~
+    future.get()  
+~~~~
+In case of many tasks we then use the list of future, but future.get() is blocking
+call. Therefore, we take always the first submitted task future and make get() call on it
+to wait and get the first task's result even if any other task might be completed before it. 
+
+To be able to get result for the first completed task from task list the 
+ExecutorCompletionService can be used with ExecutorCompletionService.take() call
+that blocks and waits for any underlying Future that completed first.
+The example codes are in : 
+**WebLoadingFutureAndExecutorService.java** , 
+**WebLoadingFutureExecutorCompletionService.java**
+
+
 JPA and DB update by ThreadPoolExecutor 
 --------------------------------------
 1) JavaSE application has to manage EnityManager itself
